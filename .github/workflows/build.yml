@@ -1,8 +1,8 @@
 名称：构建
 上：[推，拉请求]
 工作：
-  建造：
-    运行： $ { { Matrix.os } }
+  建造者：
+    运行： $ {   {矩阵.os }     }
     战略：
       快速失败：false
       矩阵：
@@ -12,23 +12,23 @@
         包括：
           -操作系统： windows-最新
             构建类型：发布
-            启用用户界面：打开
+            启用用户界面：open
     脚步：
     -使用： actions/checkout@v3
       和：
-        子模块：“递归”
+        子模块：“梯度”
     -名称： ccache
       使用： hendrikmuhs/ccache-action@v1
-      if : runner.os == 'Linux'
+      if                   : runner.os == 'Linux'
       和：
-        键： $ { { matrix.os } } -$ { { matrix.enable_ui } }
-    -使用： seamiddleditch/gha-setup-ninja@master
+        键： $ {                   { Matrix.os }                   } -$ {                  { Matrix.enable_ui }                 }
+    -使用：seamiddleditch/gha-setup-ninja@master
     -使用： ilammy/msvc-dev-cmd@v1
-      if : runner.os == 'Windows'
+      如果               : runner.os == 'Windows'
     -名称：安装依赖项
       外壳： bash
       运行：|
-        if [[ "${{ runner.os }}" == "Linux" ]] ; 然后
+        如果[             [             "${{ runner.os }}" == "Linux"            ]          ] ; 然后
           sudo apt-get update-qq
           sudo apt-get install -y \
             libx11-dev libxcursor-dev libxi-dev
@@ -36,16 +36,16 @@
     -名称：生成Makefile
       外壳： bash
       运行：|
-        if [ [  "${{ runner.os }}" == "Windows"  ] ] ; 然后
+        如果[         [         "${{ runner.os }}" == "Windows"        ]      ] ; 然后
           导出enable_ccache=关闭
-        除此之外
+        另外
           导出enable_ccache=on
         菲
         卷曲-L https://github.com/blueloveTH/aseprite/releases/download/v0.01/skia.zip --输出skia.zip
         7z x 滑雪.zip
         cmake -S 。-B 构建 -G 忍者 \
-          -DCMAKE_BUILD_TYPE=$ { {矩阵.build_type } } \
-          -DENABLE_UI=$ { { Matrix.enable_ui } } \
+          -DCMAKE_BUILD_TYPE=$ {     {矩阵.build_type }    } \
+          -DENABLE_UI=$ {   { Matrix.enable_ui }  } \
           -DENABLE_CCACHE=$enable_ccache \
           -DLAF_BACKEND=skia \
           -DSKIA_DIR=./skia \
